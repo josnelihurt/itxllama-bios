@@ -30,3 +30,26 @@ $ make
 If building is successful, the 2 MB output ROM file will be in the `out/` directory.
 Another file is also made - `out/xxx-padded.rom` - padded with `0xFF` to fit 8 MB, for flashing directly to the SPI ROM using a hardware programmer. The Coreboot/SeaBIOS ROM will be located at the end of this 8 MB file.
 
+#### Build with docker
+If you want to build itxllama-bios with docker, you need to install docker in your system and enable mutilarch in the case your host is different from i386
+
+```
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes.
+```
+
+##### Build container 
+This uses the image josnelihurt/itxllama-bios-builder or you can build your own image using
+```
+make build-docker
+```
+After this you can use the container generated with the tag itxllama-bios to execute the compilation.
+
+##### Build the cross compiler
+```
+make build-xgcc-docker
+```
+##### Build the ROM file
+```
+make
+
+```
